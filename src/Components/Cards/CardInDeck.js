@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation,NavLink } from "react-router-dom";
 
-function Card({ card, deleteHandler }) {
+function CardInDeck({ card, deleteHandler }) {
     const location = useLocation();
 
     return (
@@ -24,4 +24,4 @@ function Card({ card, deleteHandler }) {
     );
 }
 
-export default Card;
+export default CardInDeck;
