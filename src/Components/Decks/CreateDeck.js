@@ -66,7 +66,7 @@ function CreateDeck() {
 
                     <button type="submit" style={{marginRight:"15px"}} className="btn btn-primary">Submit</button>
                     <NavLink to="/" >
-                        <button className="btn btn-primary" style={{marginLeft:"15px"}}>Cancel</button>
+                        <button className="btn btn-secondary" style={{marginLeft:"15px"}}>Cancel</button>
                     </NavLink>
 
 

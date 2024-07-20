@@ -52,19 +52,23 @@ function DeckScreen() {
     return (
         <div>
             <BreadCrumbs pathFragments={pathFragments} />
-            <h3>{deck.name}</h3>
-            <p>{deck.description}</p>
-            <div>
-                <NavLink to={`/decks/${deck.id}/edit`}>
-                    <button>Edit</button>
-                </NavLink>
-                <NavLink to={`/decks/${deck.id}/study`}>
-                    <button>Study</button>
-                </NavLink>
-                <NavLink to={`/decks/${deck.id}/cards/new`}>
-                    <button>Add Cards</button>
-                </NavLink>
-                <DeleteDeck deck={deck}/>
+            <div  className="card w-50">
+                <div className="card-header">
+                    {deck.name}
+                </div>
+                <div className="card-body">
+                    <p> {deck.description}</p>
+                    <NavLink to={`/decks/${deck.id}/edit`}>
+                        <button className="btn btn-secondary"  style={{marginRight:"15px"}} >Edit</button>
+                    </NavLink>
+                    <NavLink to={`/decks/${deck.id}/study`}>
+                        <button className="btn btn-primary"  style={{marginRight:"15px",marginLeft:"15px"}}>Study</button>
+                    </NavLink>
+                    <NavLink to={`/decks/${deck.id}/cards/new`}>
+                        <button className="btn btn-primary"  style={{marginLeft:"15px"}}>Add Cards</button>
+                    </NavLink>
+                    <DeleteDeck deck={deck}/>
+                </div>
             </div>
             {deck.cards&&(
                 <CardsList cards={cards} handleDelete={handleCardDelete} />

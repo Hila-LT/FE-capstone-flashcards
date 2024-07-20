@@ -35,20 +35,24 @@ function StudyCard({cards}) {
     return (
         <>
             <section>
-                <div>
-                    <h3>Card {currentCard+1} of {cards.length} </h3>
-                    {console.log("cards: ",cards," currentCard: ",currentCard, "its content: ", cards[currentCard])}
-                    <p>
-                        {isFlipped ? cards[currentCard].back : cards[currentCard].front}
-                    </p>
-                    <button onClick={handleFlip}>
-                        Flip
-                    </button>
-                    {isFlipped && currentCard < cards.length-1 && (
-                        <button onClick={handleNext} >
-                            Next
+                <div  className="card w-50">
+                    <div className="card-header">Card {currentCard + 1} of {cards.length}
+                    </div>
+                    {console.log("cards: ", cards, " currentCard: ", currentCard, "its content: ", cards[currentCard])}
+                    <div className="card-body">
+                        <p class="card-text">
+                            {isFlipped ? cards[currentCard].back : cards[currentCard].front}
+                        </p>
+
+                        <button className="btn btn-primary "  style={{marginRight: "15px"}} type="button" onClick={handleFlip}>
+                            Flip
                         </button>
-                    )}
+                        {isFlipped && currentCard < cards.length - 1 && (
+                            <button  className="btn btn-primary "  style={{marginRight: "15px", marginLeft:"15px"}} type="button" onClick={handleNext}>
+                                Next
+                            </button>
+                        )}
+                    </div>
                 </div>
             </section>
         </>

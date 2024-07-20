@@ -4,7 +4,7 @@ import React from "react";
 function NotEnoughCards ({deck}){
     {console.log("deck in not enough cards: ",deck)}
     let msg;
-    if(deck.cards.length==1){
+    if(deck.cards.length===1){
        msg= "There is 1 card in this deck";
     }
     else{
@@ -13,15 +13,19 @@ function NotEnoughCards ({deck}){
     return (
 
         <div>
-            {/*placeholder for breadcurmbs*/}
-
-            <h3> Not Enough Cards.</h3>
-            <p>You need at least 3 cards to study. {msg}</p>
-            <NavLink to="cards/new">
-                <button type={"button"}>
-                    Add Cards
-                </button>
-            </NavLink>
+            <div  className="card w-50">
+                <div className="card-header">
+                    Not Enough Cards
+                </div>
+                <div className="card-body">
+                    <p>You need at least 3 cards to study. {msg}</p>
+                    <NavLink to={`/decks/${deck.id}/cards/new`}>
+                        <button className="btn btn-primary" type={"button"}>
+                            Add Cards
+                        </button>
+                    </NavLink>
+                </div>
+            </div>
 
 </div>
     )

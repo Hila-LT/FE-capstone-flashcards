@@ -1,106 +1,115 @@
-import React, { useState } from "react";
 
+import BreadCrumbs from "../../Layout/BreadCrumbs";
+import React, {useEffect, useState} from "react";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
+import {createCard, readDeck} from "../../utils/api";
 
+function AddCard() {
+    const navigate=useNavigate();
+    const {deckId} = useParams();
+    const [deckInfo, setDeckInfo] = useState({});
 
-function RecipeCreate({createRecipe}) {
-
-    /*
-    To create a recipe entry, your app will need to have a form with input fields for the name of the dish,
-     the cuisine it belongs to, and an URL that points to a picture of the dish.
-     Use <textarea> for the ingredients and preparation. For the tests to pass,
-      use the following names for your inputs:
-       <input name="name">, <input name="cuisine">, <input name="photo">, <textarea name="ingredients"> and <textarea name="preparation">.
-
-     */
-
-    // TODO: When the form is submitted, a new recipe should be created, and the form contents cleared.
-    // TODO: Add the required input and textarea form elements.
-    // TODO: Add the required submit and change handlers.
-
-    const [name, setName] = useState("Name");
-    const handleNameChange = (event) => setName(event.target.value);
-    // TODO: When the form is submitted, a new post should be created, and the form contents cleared.
-    const [photo, setPhoto] = useState("URL");
-    const handlePhotoChange = (event) => setPhoto(event.target.value);
-    const [ingredients, setIngredients] = useState("Ingredeients");
-    const handleIngredeientsChange = (event) => setIngredients(event.target.value);
-    const [cuisine, setCuisine] = useState("Cuisine");
-    const handleCuisineChange = (event) => setCuisine(event.target.value);
-    const [preparation, setPreparations] = useState("Preparations");
-    const handlePreparationsChange = (event) => setPreparations(event.target.value);
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        console.log("Submitted:", name,cuisine,photo,ingredients,preparation);
-        createRecipe({name,cuisine,photo,ingredients,preparation});
-        setName("Name");
-        setPhoto("URL");
-        setIngredients("Ingredients");
-        setCuisine("Cuisine");
-        setPreparations("Preparations");
-
+    const pathFragments = [
+        { link: "/", text: "Home" },
+        {
+            link: `/decks/${deckId}`,
+            text: deckInfo ? deckInfo.name : "Error loading deck .",
+        },
+        {
+            text: "Add Card",
+        },
+    ];
+    const initialState = {
+        front: "",
+        back: "",
     };
 
+    useEffect(() => {
+        const abortController = new AbortController();
+
+        async function fetchDeck() {
+            try {
+                const res = await readDeck(deckId, abortController.signal);
+                setDeckInfo(res);
+            } catch (error) {
+                console.error('Error fetching deck info:', error);
+            }
+        }
+
+        if (deckId) {
+            fetchDeck();
+        } else {
+            console.error('deckId is not defined');
+        }
+
+        return () => {
+            abortController.abort();
+        };
+    }, [deckId]);
+
+    const [formData, setFormData] = useState({ ...initialState });
+
+    const changeHandler = ({ target }) => {
+        setFormData({
+            ...formData,
+            [target.name]: target.value,
+        });
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        console.log("Submitted:", formData.front, formData.back);
+        const abortController = new AbortController();
+        try {
+            await createCard(deckId, formData,abortController.signal);
+            navigate(`/decks/${deckId}`);
+            setFormData(initialState);
+        }
+        catch (error){
+            console.error('Error fetching deck info:', error);
+        }
+    };
     return (
-        <form name="create" onSubmit={handleSubmit}>
-            <table>
-                <tbody>
-                <tr>
-                    <td>
-                        <input
-                            name="name"
-                            id="name"
-                            type="text"
-                            onChange={handleNameChange}
-                            value={name}
-                        />
-                    </td>
-                    <td>
-                        <input
-                            name="cuisine"
-                            id="cuisine"
-                            type="text"
-                            onChange={handleCuisineChange}
-                            value={cuisine}
-                        />
-                    </td>
-                    <td>
-                        <input
-                            name="photo"
-                            id="photo"
-                            type="text"
-                            onChange={handlePhotoChange}
-                            value={photo}
-                        />
-                    </td>
-                    <td>
-                <textarea
-                    name="ingredients"
-                    id="ingredients"
-                    required={true}
-                    rows={3}
-                    onChange={handleIngredeientsChange}
-                    value={ingredients}
-                />
-                    </td>
-                    <td>
-                <textarea
-                    name="preparation"
-                    id="preparation"
-                    required={true}
-                    rows={3}
-                    onChange={handlePreparationsChange}
-                    value={preparation}
-                />
-                    </td>
-                    <td>
-                        <button type="submit">Create</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </form>
+        // <DeckForm createDeck={createDeck} />
+        <div className="AddCard">
+            <BreadCrumbs pathFragments={pathFragments}/>
+            <h3>{deckInfo.name} : Add Card</h3>
+            <form name={"addCard"} onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label htmlFor="front" className="form-label">Front</label>
+                    <textarea id="front"
+                           type="textarea"
+                           name="front"
+                           required={true}
+                           rows={3}
+                           onChange={changeHandler}
+                           value={formData.front}
+                           className="form-control"
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="back" className="form-label">Back</label>
+                    <textarea name="back"
+                              id="back"
+                              type="textarea"
+                              required={true}
+                              rows={3}
+                              onChange={changeHandler}
+                              value={formData.back}
+                              className="form-control"
+
+                    >
+                    </textarea>
+                </div>
+                <NavLink to={`/deck/${deckInfo.id}`}>
+                    <button className="btn btn-secondary" style={{marginRight: "15px"}}>Done</button>
+                </NavLink>
+                <button type="submit" style={{marginLeft: "15px"}} className="btn btn-primary">Save</button>
+
+
+            </form>
+        </div>
     );
 }
 
-export default RecipeCreate;
+export default AddCard;

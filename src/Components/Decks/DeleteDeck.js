@@ -14,9 +14,12 @@ function DeleteDeck ({ deck }) {
         }
 
         return (
+            <>
+            {console.log("delete deck")}
             <button className="btn btn-danger" onClick={handleDelete}>
                 Delete
             </button>
+        </>
         )
     };
 

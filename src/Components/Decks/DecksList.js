@@ -6,11 +6,7 @@ import { NavLink } from "react-router-dom";
 function DecksList() {
     const [decks, setDecks] = useState([]);
     const [error, setError] = useState(undefined);
-    const createDeck = (newDeck) =>
-        setDecks((currentDeck) => [
-            newDeck,
-            ...currentDeck,
-        ]);
+
     //loading all the decks
     useEffect(() => {
         const abortController = new AbortController();
