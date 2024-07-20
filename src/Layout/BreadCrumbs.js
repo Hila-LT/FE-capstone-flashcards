@@ -1,16 +1,34 @@
 import React from "react";
-import {Routes, Route, useMatch, Link, useParams, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
-export const BreadCrumbs = () => (
-    <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-                <Link to={"/"} className="nav-link">Go Home</Link>
-
-            </li>
-        </ol>
-    </nav>
-);
-
+function BreadCrumbs  ({pathFragments}) {
+    return (
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol className="breadcrumb">
+                    {pathFragments.map((path, index) => (
+                        <li
+                            key={index}
+                            className={`breadcrumb-item ${
+                                index === pathFragments.length - 1 ? "active" : ""
+                            }`}
+                        >
+                            {path.link ? (
+                                <Link to={path.link}>
+                                    {index === 0 ? (
+                                        <i className="bi bi-house-door-fill"></i>
+                                    ) : null}{" "}
+                                    {path.text}
+                                </Link>
+                            ) : (
+                                <span>{path.text}</span>
+                            )}
+                        </li>
+                    ))}
+                </ol>
+            </nav>
+        </div>
+    );
+}
 export default BreadCrumbs;

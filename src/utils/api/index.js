@@ -106,6 +106,7 @@ export async function createDeck(deck, signal) {
  */
 export async function readDeck(deckId, signal) {
   const url = `${API_BASE_URL}/decks/${deckId}?_embed=cards`;
+  console.log("in readDeck, url: " , url );
   return await fetchJson(url, { signal }, {});
 }
 

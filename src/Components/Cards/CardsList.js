@@ -1,11 +1,11 @@
 import React from "react";
-import Card from "./Card";
+import CardInDeck from "./CardInDeck";
 
 function CardList({ cards, handleDelete }) {
     return (
         <div>
             {cards.map((card) => (
-                <Card key={card.id}
+                <CardInDeck key={card.id}
                     card={card}
                     deleteHandler={() => handleDelete(card.id)} // Use handleDelete here
                 />

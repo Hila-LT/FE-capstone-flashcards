@@ -6,7 +6,11 @@ import { NavLink } from "react-router-dom";
 function DecksList() {
     const [decks, setDecks] = useState([]);
     const [error, setError] = useState(undefined);
-
+    const createDeck = (newDeck) =>
+        setDecks((currentDeck) => [
+            newDeck,
+            ...currentDeck,
+        ]);
     //loading all the decks
     useEffect(() => {
         const abortController = new AbortController();
@@ -42,7 +46,7 @@ function DecksList() {
     return (
         <div>
             <NavLink to="decks/new">
-                <button type="button">
+                <button className="btn btn-primary" type="button">
                     Create Deck
                 </button>
             </NavLink>

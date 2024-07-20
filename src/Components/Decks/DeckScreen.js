@@ -4,6 +4,9 @@ import DeleteDeck from "./DeleteDeck";
 import  {useEffect, useState} from "react";
 import {deleteDeck, listDecks, readDeck,deleteCard} from "../../utils/api";
 import CardsList from "../Cards/CardsList";
+import BreadCrumbs from "../../Layout/BreadCrumbs";
+
+
 
 function DeckScreen() {
     const [deck, setDeck] = useState({});
@@ -12,6 +15,15 @@ function DeckScreen() {
     const {deckId} = useParams();
     const navigate = useNavigate();
 
+    const pathFragments = [
+        { link: "/", text: "Home" },
+        {
+            link: `/decks/${deckId}`,
+            text: deck ? deck.name : "Error loading deck .",
+        },
+
+
+    ];
     useEffect(() => {
         const abortController = new AbortController();
         readDeck(deckId, abortController.signal)
@@ -39,6 +51,7 @@ function DeckScreen() {
 
     return (
         <div>
+            <BreadCrumbs pathFragments={pathFragments} />
             <h3>{deck.name}</h3>
             <p>{deck.description}</p>
             <div>
