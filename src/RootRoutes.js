@@ -1,14 +1,14 @@
 
 import React from 'react'
-import DecksList from "./Components/Decks/DecksList";
-import DeckScreen from "./Components/Decks/DeckScreen";
-import CreateDeck from "./Components/Decks/CreateDeck";
-import EditDeck from "./Components/Decks/EditDeck";
-import Study from "./Components/Study/Study";
-import CardsList from "./Components/Cards/CardsList";
-import AddCard from "./Components/Cards/AddCard";
-import EditCard from "./Components/Cards/EditCard";
-import NotFound from "./Layout/NotFound";
+import DecksList from "./components/decks/DecksList";
+import DeckScreen from "./components/decks/DeckScreen";
+import CreateDeck from "./components/decks/CreateDeck";
+import EditDeck from "./components/decks/EditDeck";
+import Study from "./components/study/Study";
+import CardsList from "./components/cards/CardsList";
+import AddCard from "./components/cards/AddCard";
+import EditCard from "./components/cards/EditCard";
+import NotFound from "./layout/NotFound";
 import {Routes, Route } from "react-router-dom";
 
 

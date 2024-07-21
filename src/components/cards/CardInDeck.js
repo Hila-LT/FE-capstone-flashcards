@@ -8,7 +8,7 @@ function CardInDeck({ card, deleteHandler }) {
         <div>
             <div  className="card w-50">
                 <div className="card-body">
-                    <table class ="table">
+                    <table className ="table">
                         <tbody>
                         <tr>
                             <td>{card.front}</td>

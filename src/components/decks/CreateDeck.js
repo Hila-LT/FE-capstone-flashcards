@@ -1,5 +1,5 @@
 
-import BreadCrumbs from "../../Layout/BreadCrumbs";
+import BreadCrumbs from "../../layout/BreadCrumbs";
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { createDeck } from "../../utils/api";
@@ -26,12 +26,12 @@ function CreateDeck() {
             [target.name]: target.value,
         });
     };
-
+    let newDeckID;
     const handleSubmit = async (event) => {
         event.preventDefault();
         console.log("Submitted:", formData.name, formData.description);
         await createDeck(formData);
-        navigate("/decks");
+        navigate("/");
         setFormData(initialState);
     };
     return (

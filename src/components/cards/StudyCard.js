@@ -40,7 +40,7 @@ function StudyCard({cards}) {
                     </div>
                     {console.log("cards: ", cards, " currentCard: ", currentCard, "its content: ", cards[currentCard])}
                     <div className="card-body">
-                        <p class="card-text">
+                        <p className="card-text">
                             {isFlipped ? cards[currentCard].back : cards[currentCard].front}
                         </p>
 

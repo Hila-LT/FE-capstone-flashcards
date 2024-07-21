@@ -1,10 +1,10 @@
 import React from "react";
 import {NavLink, useNavigate, useParams} from "react-router-dom";
-import DeleteDeck from "./DeleteDeck";
+import DeleteDeckBtn from "./DeleteDeckBtn";
 import  {useEffect, useState} from "react";
 import {deleteDeck, listDecks, readDeck,deleteCard} from "../../utils/api";
-import CardsList from "../Cards/CardsList";
-import BreadCrumbs from "../../Layout/BreadCrumbs";
+import CardsList from "../cards/CardsList";
+import BreadCrumbs from "../../layout/BreadCrumbs";
 
 
 
@@ -21,8 +21,6 @@ function DeckScreen() {
             link: `/decks/${deckId}`,
             text: deck ? deck.name : "Error loading deck .",
         },
-
-
     ];
     useEffect(() => {
         const abortController = new AbortController();
@@ -59,7 +57,7 @@ function DeckScreen() {
                 <div className="card-body">
                     <p> {deck.description}</p>
                     <NavLink to={`/decks/${deck.id}/edit`}>
-                        <button className="btn btn-secondary"  style={{marginRight:"15px"}} >Edit</button>
+                        <button className="btn btn-primary"  style={{marginRight:"15px"}} >Edit</button>
                     </NavLink>
                     <NavLink to={`/decks/${deck.id}/study`}>
                         <button className="btn btn-primary"  style={{marginRight:"15px",marginLeft:"15px"}}>Study</button>
@@ -67,7 +65,7 @@ function DeckScreen() {
                     <NavLink to={`/decks/${deck.id}/cards/new`}>
                         <button className="btn btn-primary"  style={{marginLeft:"15px"}}>Add Cards</button>
                     </NavLink>
-                    <DeleteDeck deck={deck}/>
+                    <DeleteDeckBtn deck={deck} calledFrom={"deckScreen"}/>
                 </div>
             </div>
             {deck.cards&&(

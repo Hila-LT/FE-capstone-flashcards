@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {readDeck} from "../../utils/api";
 import NotEnoughCards from "./NotEnoughCards";
 import { useParams,useLocation} from "react-router-dom";
-import StudyCard from "../Cards/StudyCard";
-import BreadCrumbs from "../../Layout/BreadCrumbs";
+import StudyCard from "../cards/StudyCard";
+import BreadCrumbs from "../../layout/BreadCrumbs";
 
 function Study() {
     const {deckId} = useParams();
